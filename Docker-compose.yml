@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.7'
 
 services:
   postgres:
@@ -6,3 +6,11 @@ services:
     container_name: postgres
     ports:
       - "5432:5432"
+  # app:
+  #   image: .
+  #   container_name: app
+  #   ports:
+  #     - "80:5000"
+  #     - "81:5001"
+  #   depends_on: 
+  #     - postgres

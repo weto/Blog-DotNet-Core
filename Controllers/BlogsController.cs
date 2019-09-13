@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace modelo_2.Controllers
 {
+    public class Name
+    {
+        public int Id { get; set; }
+    }
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class BlogsController : ControllerBase
@@ -31,7 +35,7 @@ namespace modelo_2.Controllers
             // 1
             // var blogs = from blog in _bloggingContext.Blogs where blog.Url == "/teste/10" select blog;
             // return await blogs.ToListAsync();
-            
+
             // 2
             // var blogs2 = await blogs.Where(b => b.Url == "/teste/10").ToListAsync();
 
@@ -54,18 +58,24 @@ namespace modelo_2.Controllers
             return "OK";
         }
 
-        // [HttpPost]
-        // public void InsertPost([FromBody] int id)
-        // {
-        //     _bloggingContext.Blogs.Add(new Blog()
-        //     {
-        //         BlogId = id,
-        //         Url = "/teste/" + id
-        //     });
-        //     _bloggingContext.SaveChanges();
+        [HttpPost]
+        public ActionResult Teste([FromBody] Name id)
+        {
+            var palvras = new[] { "Casa", "Carro" };
+            var vogais = new[] { 'a', 'e', 'i', 'o', 'u' };
+            var resposta = palvras.Select(p => new
+            {
+                Palavra = p,
+                PrimeiraLetra = p.First(),
+                Tamanho = p.Count(),
+                Vogais = p.ToLower().Count(c => vogais.Contains(c))
+            });
 
-
-        // }
+            return new JsonResult(resposta)
+            {
+                StatusCode = 423
+            };
+        }
 
         // // GET api/values/5
         // [HttpGet("{id}")]

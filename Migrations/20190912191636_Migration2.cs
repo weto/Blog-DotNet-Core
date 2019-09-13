@@ -9,14 +9,16 @@ namespace modelo_2.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Autor",
                 table: "Blogs",
-                nullable: true);
+                nullable: true
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
                 name: "Autor",
-                table: "Blogs");
+                table: "Blogs"
+            );
         }
     }
 }
