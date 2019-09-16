@@ -4,13 +4,21 @@ services:
   postgres:
     image: "postgres"
     container_name: postgres
+    networks: 
+      - network_hello_word
     ports:
       - "5432:5432"
-  # app:
-  #   image: .
-  #   container_name: app
-  #   ports:
-  #     - "80:5000"
-  #     - "81:5001"
-  #   depends_on: 
-  #     - postgres
+  app:
+    image: teste_dotnet
+    container_name: app
+    networks: 
+      - network_hello_word
+    ports: 
+      - "8080:8080"
+      - "81:5001"
+    depends_on: 
+      - postgres
+    links: 
+      - postgres
+networks: 
+  network_hello_word:

@@ -71,6 +71,10 @@ namespace modelo_2.Controllers
                 Vogais = p.ToLower().Count(c => vogais.Contains(c))
             });
 
+            Console.WriteLine("Wellington");
+
+            Console.WriteLine("Wellington Conceição");
+
             return new JsonResult(resposta)
             {
                 StatusCode = 423

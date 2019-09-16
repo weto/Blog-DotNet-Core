@@ -1,7 +1,16 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
+
+RUN mkdir app
+COPY . ./app
+WORKDIR /app 
+RUN ls
+RUN dotnet publish -o ./out -r linux-musl-x64 -c Release
+RUN ls ./out
+
 FROM mcr.microsoft.com/dotnet/core/runtime-deps:2.2.7-alpine3.9
-# ARG source
+RUN mkdir /app
 WORKDIR /app
-EXPOSE 80
-COPY ${source:-obj/Docker/publish} .
-# ENTRYPOINT ["dotnet", "modelo_2"]
-ENTRYPOINT ["dotnet"]
+COPY --from=build-env /app/out .
+RUN ls /app
+EXPOSE 8080
+ENTRYPOINT ["/app/modelo_2"]

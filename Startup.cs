@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EFGetStarted.AspNetCore.NewDb.Models;
+﻿using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace modelo_2
 {
@@ -34,7 +27,7 @@ namespace modelo_2
                 Options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
-            var conn2 = "Host=localhost;Database=postgres;Username=postgres;Password=123456";
+            var conn2 = "Host=postgres;Database=postgres;Username=postgres;Password=123456";
 
             services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext> (options => options.UseNpgsql(conn2));
             
@@ -55,6 +48,20 @@ namespace modelo_2
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            UpdateDatabase(app);
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                    .GetRequiredService<IServiceScopeFactory>()
+                    .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<BloggingContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
