@@ -9,7 +9,9 @@ services:
     ports:
       - "5432:5432"
   app:
-    image: teste_dotnet
+    image: app-hello-work-dotnet-core
+    build: 
+      context: .
     container_name: app
     networks: 
       - network_hello_word
