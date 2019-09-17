@@ -51,11 +51,15 @@ namespace modelo_2.Controllers
             _bloggingContext.Blogs.Add(new Blog()
             {
                 BlogId = id,
-                Url = "/teste/" + id
+                // Url = "/teste/" + id
             });
-            _bloggingContext.SaveChanges();
 
-            return "OK";
+            if (ModelState.IsValid) {
+                _bloggingContext.SaveChanges();
+                return "OK";
+            } 
+
+            return "Erro";
         }
 
         [HttpPost]

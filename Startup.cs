@@ -27,7 +27,7 @@ namespace modelo_2
                 Options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
-            var conn2 = "Host=postgres;Database=postgres;Username=postgres;Password=123456";
+            var conn2 = "Host=localhost;Database=postgres;Username=postgres;Password=123456";
 
             services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext> (options => options.UseNpgsql(conn2));
             

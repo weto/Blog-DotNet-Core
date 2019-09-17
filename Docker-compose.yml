@@ -8,19 +8,19 @@ services:
       - network_hello_word
     ports:
       - "5432:5432"
-  app:
-    image: app-hello-work-dotnet-core
-    build: 
-      context: .
-    container_name: app
-    networks: 
-      - network_hello_word
-    ports: 
-      - "8080:8080"
-      - "81:5001"
-    depends_on: 
-      - postgres
-    links: 
-      - postgres
+  # app:
+  #   image: app-hello-work-dotnet-core
+  #   build: 
+  #     context: .
+  #   container_name: app
+  #   networks: 
+  #     - network_hello_word
+  #   ports: 
+  #     - "8080:8080"
+  #     - "81:5001"
+  #   depends_on: 
+  #     - postgres
+  #   links: 
+  #     - postgres
 networks: 
   network_hello_word:
