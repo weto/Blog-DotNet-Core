@@ -1,2 +1,11 @@
 ## Acessando o swagger
 http://localhost:8080/swagger
+
+## Documentação
+https://docs.microsoft.com/pt-br/aspnet/core/web-api/http-repl?view=aspnetcore-2.2&tabs=macos#prerequisites
+
+## Rodando com httprepl
+httprepl http://localhost:8080/
+
+## Rodando script
+run /Users/bi002100/Applications/workspace/modelo_2/tests/modelos.txt

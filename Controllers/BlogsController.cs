@@ -11,6 +11,9 @@ namespace modelo_2.Controllers
     public class Name
     {
         public int Id { get; set; }
+        public string Url { get; set; }
+
+        public string Autor { get; set; }
     }
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -45,8 +48,14 @@ namespace modelo_2.Controllers
             return blogs3;
         }
 
+        [HttpGet]
+        public async Task<Blog> pesquisarPorBlogID(int blogId)
+        {
+            return await _bloggingContext.Blogs.FirstAsync(blog => blog.BlogId == blogId);
+        }
+
         [HttpGet("{id}")]
-        public ActionResult<string> Insert(int id)
+        public ActionResult<string> pesquisarPorBlogIDDois(int id)
         {
             _bloggingContext.Blogs.Add(new Blog()
             {
@@ -57,6 +66,39 @@ namespace modelo_2.Controllers
 
             return "OK";
         }
+
+        [HttpPost]
+        public ActionResult<string> Salvar([FromBody] Name blog)
+        {
+            _bloggingContext.Blogs.Add(new Blog()
+            {
+                BlogId = blog.Id,
+                Url = blog.Url,
+                Autor = blog.Autor
+            });
+            _bloggingContext.SaveChanges();
+
+            return "OK";
+        }
+
+        [HttpPut]
+        public ActionResult<string> Editar(int id, [FromBody] Name blog)
+        {
+            // _bloggingContext.Attach(new Blog()
+            // {
+            //     BlogId = id,
+            //     Url = blog.Url,
+            //     Autor = blog.Autor
+            // });
+            // _bloggingContext.SaveChanges();
+
+            var blog1 = _bloggingContext.Blogs.First(f=> f.BlogId ==id);
+            blog1.Url="123";
+            _bloggingContext.SaveChanges();
+
+            return "OK";
+        }
+
 
         [HttpPost]
         public ActionResult Teste([FromBody] Name id)
