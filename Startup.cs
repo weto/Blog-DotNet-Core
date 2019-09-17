@@ -27,6 +27,26 @@ namespace modelo_2
                 Options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document => {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Microserviço dotnet core com swagger nswag";
+                    document.Info.Description = "Primeiro Micriserviço com dotnet core";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.OpenApiContact {
+                        Name = "Wellington",
+                        Email = string.Empty,
+                        Url = "http://teste.com"
+                    };
+                    document.Info.License = new NSwag.OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = "http://example.com/license"
+                    };
+                };
+            });
+
             var conn2 = "Host=postgres;Database=postgres;Username=postgres;Password=123456";
 
             services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext> (options => options.UseNpgsql(conn2));
@@ -45,6 +65,10 @@ namespace modelo_2
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStaticFiles();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
             app.UseMvc();
