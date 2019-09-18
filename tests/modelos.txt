@@ -1,11 +1,11 @@
 set base http://localhost:8080
-ls
 cd api
-ls
 cd Blogs
-ls
 post Salvar -c "{ 'id': 1, 'url': '/teste/1', 'autor': 'weto1' }"
-ls
+get todos
 get pesquisarPorBlogID?blogId=3 --response /Users/bi002100/Applications/workspace/modelo_2/tests/response.json
-ls
+get todos
+put Editar?id=1 -c "{ 'blogId': 1, 'url': '/teste/12', 'autor': 'weto1' }"
+get todos
+delete Delete?id=1
 get todos --response /Users/bi002100/Applications/workspace/modelo_2/tests/response.json

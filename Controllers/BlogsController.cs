@@ -93,10 +93,20 @@ namespace modelo_2.Controllers
             // _bloggingContext.SaveChanges();
 
             var blog1 = _bloggingContext.Blogs.First(f=> f.BlogId ==id);
-            blog1.Url="123";
+            blog1.Url = blog.Url;
+            blog1.Autor = blog.Autor;
             _bloggingContext.SaveChanges();
 
             return "OK";
+        }
+
+        [HttpDelete]
+        public ActionResult<Boolean> Delete(int id)
+        {
+            var blog1 = _bloggingContext.Blogs.Find(id);
+            _bloggingContext.Blogs.Remove(blog1);
+            _bloggingContext.SaveChanges();
+            return true;
         }
 
 
