@@ -8,4 +8,4 @@ https://docs.microsoft.com/pt-br/aspnet/core/web-api/http-repl?view=aspnetcore-2
 httprepl http://localhost:8080/
 
 ## Rodando script
-run /Users/bi002100/Applications/workspace/modelo_2/tests/modelos.txt
+run run /Users/bi002100/Applications/workspace/modelo_2/tests/Blog/integracao.txt

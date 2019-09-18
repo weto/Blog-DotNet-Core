@@ -3,9 +3,9 @@ cd api
 cd Blogs
 post Salvar -c "{ 'id': 1, 'url': '/teste/1', 'autor': 'weto1' }"
 get todos
-get pesquisarPorBlogID?blogId=3 --response /Users/bi002100/Applications/workspace/modelo_2/tests/response.json
+get pesquisarPorBlogID?blogId=3
 get todos
 put Editar?id=1 -c "{ 'blogId': 1, 'url': '/teste/12', 'autor': 'weto1' }"
 get todos
 delete Delete?id=1
-get todos --response /Users/bi002100/Applications/workspace/modelo_2/tests/response.json
+get todos --response /Users/bi002100/Applications/workspace/modelo_2/tests/Blog/response_integracao.json
