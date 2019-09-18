@@ -1,4 +1,6 @@
-﻿using EFGetStarted.AspNetCore.NewDb.Models;
+﻿using System;
+using System.Collections.Generic;
+using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +12,13 @@ namespace modelo_2
 {
     public class Startup
     {
+
+
         public Startup(IConfiguration configuration)
         {
+            var teste = new Teste<Pessoa>(new Pessoa("Rafael"));
+            teste.Imprime();
+            
             Configuration = configuration;
         }
 
@@ -22,15 +29,16 @@ namespace modelo_2
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.Configure<CookiePolicyOptions> (Options => {
+            services.Configure<CookiePolicyOptions>(Options =>
+            {
                 Options.CheckConsentNeeded = context => true;
                 Options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
             var conn2 = "Host=postgres;Database=postgres;Username=postgres;Password=123456";
 
-            services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext> (options => options.UseNpgsql(conn2));
-            
+            services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext>(options => options.UseNpgsql(conn2));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
