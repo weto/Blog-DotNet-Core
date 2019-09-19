@@ -20,9 +20,9 @@ namespace modelo_2.Controllers
     {
         private readonly IBlogRepository _blogService;
 
-        public BlogsController(BloggingContext _bloggingContext)
+        public BlogsController(IBlogRepository _bloggingContext)
         {
-            _blogService = new BlogService(_bloggingContext);
+            _blogService = _bloggingContext;
         }
 
         [HttpGet]

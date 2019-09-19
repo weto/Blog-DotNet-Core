@@ -1,4 +1,6 @@
-﻿using EFGetStarted.AspNetCore.NewDb.Models;
+﻿using Blog_DotNet_Core.Repositories;
+using Blog_DotNet_Core.Services;
+using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +29,10 @@ namespace modelo_2
                 Options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
-            var conn2 = "Host=localhost;Database=postgres;Username=postgres;Password=123456";
+            var conn2 = "Host=postgres;Database=postgres;Username=postgres;Password=123456";
 
             services.AddEntityFrameworkNpgsql().AddDbContext<BloggingContext> (options => options.UseNpgsql(conn2));
+            services.AddScoped<IBlogRepository,BlogService>( );
             
         }
 

@@ -11,7 +11,6 @@ namespace Blog_DotNet_Core.Services
 {
     public class BlogService : IBlogRepository
     {
-
         private readonly BloggingContext _bloggingContext;
         
         public BlogService(BloggingContext bloggingContext)

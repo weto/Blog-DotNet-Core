@@ -1,0 +1,12 @@
+## Acessando todos blogs
+get http://localhost:8080/api/blogs/todos
+
+## Salvando um novo blogs
+post http://localhost:8080/api/blogs/Salvar
+
+## Editando um blog existente
+http://localhost:8080/api/blogs/Editar/10
+
+## Excluindo um blog existente
+http://localhost:8080/api/blogs/Delete/10
+
