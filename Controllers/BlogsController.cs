@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog_DotNet_Core.Repositories;
+using Blog_DotNet_Core.Services;
 using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,70 +18,81 @@ namespace modelo_2.Controllers
     [ApiController]
     public class BlogsController : ControllerBase
     {
-        private readonly BloggingContext _bloggingContext;
+        private readonly IBlogRepository _blogService;
 
-        public BlogsController(BloggingContext bloggingContext)
+        public BlogsController(BloggingContext _bloggingContext)
         {
-            _bloggingContext = bloggingContext;
+            _blogService = new BlogService(_bloggingContext);
         }
 
         [HttpGet]
         public ActionResult<List<Blog>> todos()
         {
-            return _bloggingContext.Blogs.ToList();
+            return _blogService.TodosBlogs();
         }
 
         [HttpGet]
         public async Task<List<Blog>> pesquisarPorUrl()
         {
-            // 1
-            // var blogs = from blog in _bloggingContext.Blogs where blog.Url == "/teste/10" select blog;
-            // return await blogs.ToListAsync();
+            return await _blogService.PesquisarPorUrl();
+        }
 
-            // 2
-            // var blogs2 = await blogs.Where(b => b.Url == "/teste/10").ToListAsync();
-
-            // 3
-            var blogs3 = await _bloggingContext.Blogs.Where(blog => blog.Url == "/teste/0").ToListAsync();
-
-            return blogs3;
+        [HttpGet("{blogId}")]
+        public async Task<Blog> pesquisarPorBlogID(int blogId)
+        {
+            return await _blogService.pesquisarPorBlogID(blogId);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<string> Insert(int id)
+        public ActionResult<Blog> pesquisarPorBlogIDDois(int id)
         {
-            _bloggingContext.Blogs.Add(new Blog()
-            {
-                BlogId = id,
-                Url = "/teste/" + id
-            });
-            _bloggingContext.SaveChanges();
-
-            return "OK";
+            return _blogService.pesquisarPorBlogIDDois(id);
         }
 
         [HttpPost]
-        public ActionResult Teste([FromBody] Name id)
+        public ActionResult<string> Salvar([FromBody] BlogParam blog)
         {
-            var palvras = new[] { "Casa", "Carro" };
-            var vogais = new[] { 'a', 'e', 'i', 'o', 'u' };
-            var resposta = palvras.Select(p => new
-            {
-                Palavra = p,
-                PrimeiraLetra = p.First(),
-                Tamanho = p.Count(),
-                Vogais = p.ToLower().Count(c => vogais.Contains(c))
-            });
-
-            Console.WriteLine("Wellington");
-
-            Console.WriteLine("Wellington Conceição");
-
-            return new JsonResult(resposta)
-            {
-                StatusCode = 423
-            };
+            _blogService.Salvar(blog);
+            return "OK";
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<string> Editar(int id, [FromBody] BlogParam blog)
+        {
+            _blogService.Editar(id, blog);
+            return "OK";
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Boolean> Delete(int id)
+        {
+            _blogService.Delete(id);
+            return true;
+        }
+
+
+        // [HttpPost]
+        // public ActionResult Teste([FromBody] Name id)
+        // {
+        //     var palvras = new[] { "Casa", "Carro" };
+        //     var vogais = new[] { 'a', 'e', 'i', 'o', 'u' };
+        //     var resposta = palvras.Select(p => new
+        //     {
+        //         Palavra = p,
+        //         PrimeiraLetra = p.First(),
+        //         Tamanho = p.Count(),
+        //         Vogais = p.ToLower().Count(c => vogais.Contains(c))
+        //     });
+
+        //     Console.WriteLine("Wellington");
+
+        //     Console.WriteLine("Wellington Conceição");
+
+        //     return new JsonResult(resposta)
+        //     {
+        //         StatusCode = 423
+        //     };
+        // }
 
         // // GET api/values/5
         // [HttpGet("{id}")]
