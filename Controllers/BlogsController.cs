@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Blog_DotNet_Core.Modelos.Extensions;
 
 namespace modelo_2.Controllers
 {
@@ -41,6 +42,9 @@ namespace modelo_2.Controllers
 
             // 3
             var blogs3 = await _bloggingContext.Blogs.Where(blog => blog.Url == "/teste/0").ToListAsync();
+
+            var pageView = new Blog {};
+            Console.WriteLine($"######################################### {pageView.PageView()} #########################################");
 
             return blogs3;
         }
