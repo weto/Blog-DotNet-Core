@@ -4,9 +4,14 @@ namespace Blog_DotNet_Core.Modelos.Extensions
 {
     public static class Monetiza
     {
-        public static double PageView(this Blog value)
+        public static double PageView(this Blog blog, int view, int tipo)
         {
-            return 1.0;
+            return view + tipo;
+        }
+
+        public static string Acessos(this Blog blog)
+        {
+            return "#### acessando sintax sugar 'Acessos' ####";
         }
         
     }

@@ -44,7 +44,7 @@ namespace modelo_2.Controllers
             var blogs3 = await _bloggingContext.Blogs.Where(blog => blog.Url == "/teste/0").ToListAsync();
 
             var pageView = new Blog {};
-            Console.WriteLine($"######################################### {pageView.PageView()} #########################################");
+            Console.WriteLine($"######################################### {pageView.PageView(10, 5)} => {pageView.Acessos()} #########################################");
 
             return blogs3;
         }
